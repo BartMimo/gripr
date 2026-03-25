@@ -12,8 +12,8 @@ type ProductWithCategory = {
   price_incl_vat: number | null
   default_image_url: string | null
   categories: {
-  name: string
-}[] | null
+    name: string
+  }[] | null
 }
 
 function formatPrice(price: number) {
@@ -53,7 +53,18 @@ export default async function ProductenPage() {
     )
   }
 
-  const typedProducts: ProductWithCategory[] = products ?? []
+  const typedProducts: ProductWithCategory[] = (products ?? []).map((product) => ({
+    id: product.id,
+    slug: product.slug,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    price_excl_vat: product.price_excl_vat,
+    vat_rate: product.vat_rate,
+    price_incl_vat: product.price_incl_vat,
+    default_image_url: product.default_image_url,
+    categories: Array.isArray(product.categories) ? product.categories : null,
+  }))
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
@@ -91,7 +102,7 @@ export default async function ProductenPage() {
                 name={product.name}
                 description={product.description ?? ''}
                 price={formatPrice(priceToShow)}
-               category={product.categories?.[0]?.name ?? 'Product'}
+                category={product.categories?.[0]?.name ?? 'Product'}
                 image={
                   product.default_image_url ?? '/images/placeholder-product.jpg'
                 }
