@@ -74,7 +74,7 @@ export default async function ProductenPage() {
         </p>
 
         <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#111111] sm:text-5xl">
-          Deurknoppen met logo
+          
         </h1>
 
         <p className="mt-5 text-lg leading-8 text-stone-600">

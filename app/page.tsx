@@ -7,7 +7,8 @@ type Product = {
   slug: string
   name: string
   description: string | null
-  price: number
+  price: number | null
+  price_excl_vat: number | null
   default_image_url: string | null
 }
 
@@ -20,11 +21,18 @@ export default async function HomePage() {
 
   const { data: products } = await supabase
     .from('products')
-    .select('id, slug, name, description, price, default_image_url')
+    .select(
+      'id, slug, name, description, price, price_excl_vat, default_image_url'
+    )
     .eq('active', true)
-    .limit(6)
+    .eq('featured', true)
+    .order('created_at', { ascending: false })
+    .limit(4)
 
-  const featured = (products ?? []) as Product[]
+  const featured = ((products ?? []) as Product[]).map((product) => ({
+    ...product,
+    displayPrice: product.price_excl_vat ?? product.price ?? 0,
+  }))
 
   return (
     <main className="bg-[#F8F8F7] text-[#111111]">
@@ -35,7 +43,7 @@ export default async function HomePage() {
           </p>
 
           <h1 className="mt-4 text-5xl font-bold tracking-tight text-[#111111] sm:text-6xl">
-            Deurknoppen met uw eigen logo
+            Unieke knoppen met uw eigen logo
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-stone-600">
@@ -107,7 +115,9 @@ export default async function HomePage() {
       <section className="border-y border-stone-200 bg-white">
         <div className="mx-auto grid max-w-7xl gap-6 px-6 py-6 text-sm sm:grid-cols-3">
           <div>
-            <p className="font-semibold text-[#111111]">Professionele afwerking</p>
+            <p className="font-semibold text-[#111111]">
+              Professionele afwerking
+            </p>
             <p className="mt-1 text-stone-600">
               Ontworpen voor een sterke merkuitstraling
             </p>
@@ -173,7 +183,7 @@ export default async function HomePage() {
               Collectie
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#111111]">
-              Populaire producten
+              Uitgelichte producten
             </h2>
           </div>
 
@@ -188,11 +198,11 @@ export default async function HomePage() {
         {featured.length === 0 ? (
           <div className="mt-8 rounded-3xl border border-stone-200 bg-white p-8 shadow-sm">
             <p className="text-stone-600">
-              Er zijn nog geen producten beschikbaar.
+              Er zijn nog geen uitgelichte producten beschikbaar.
             </p>
           </div>
         ) : (
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {featured.map((product) => (
               <Link
                 key={product.id}
@@ -208,7 +218,7 @@ export default async function HomePage() {
                     alt={product.name}
                     fill
                     className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
 
@@ -222,9 +232,12 @@ export default async function HomePage() {
                   </p>
 
                   <div className="mt-5 flex items-center justify-between">
-                    <p className="font-semibold text-[#111111]">
-                      {formatPrice(product.price)}
-                    </p>
+                    <div>
+                      <p className="font-semibold text-[#111111]">
+                        {formatPrice(product.displayPrice)}
+                      </p>
+                      <p className="text-xs text-stone-500">excl. btw</p>
+                    </div>
 
                     <span className="rounded-2xl bg-[#111111] px-4 py-2 text-sm font-medium text-white">
                       Bekijk

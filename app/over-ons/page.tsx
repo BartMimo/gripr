@@ -10,7 +10,7 @@ export default function OverOnsPage() {
           </p>
 
           <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            Gepersonaliseerde deurknoppen voor een sterke merkuitstraling
+            Gepersonaliseerde knoppen voor een sterke merkuitstraling
           </h1>
 
           <p className="mt-6 text-lg leading-8 text-stone-600">
