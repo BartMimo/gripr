@@ -5,10 +5,10 @@ export type ProductRow = {
   slug: string
   description: string | null
   long_description: string | null
-  price: number
-  price_excl_vat: number
-  vat_rate: number
-  price_incl_vat: number
+  price: number | null
+  price_excl_vat: number | null
+  vat_rate: number | null
+  price_incl_vat: number | null
   active: boolean
   featured: boolean
   allow_personalization: boolean
@@ -36,13 +36,6 @@ export type OrderRow = {
   created_at: string
 }
 
-  // 🔥 NIEUW (Stripe + betaling)
-  stripe_session_id: string | null
-  paid_at: string | null
-
-  created_at: string
-}
-
 export type OrderItemRow = {
   id: string
   order_id: string
@@ -66,22 +59,6 @@ export type CategoryRow = {
   description: string | null
   sort_order: number
   active: boolean
-  created_at: string
-}
-
-export type ProductRow = {
-  id: string
-  category_id: string | null
-  name: string
-  slug: string
-  description: string | null
-  long_description: string | null
-  price: number
-  active: boolean
-  featured: boolean
-  allow_personalization: boolean
-  personalization_label: string | null
-  default_image_url: string | null
   created_at: string
 }
 
