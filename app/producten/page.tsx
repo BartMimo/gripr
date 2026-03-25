@@ -12,8 +12,8 @@ type ProductWithCategory = {
   price_incl_vat: number | null
   default_image_url: string | null
   categories: {
-    name: string
-  } | null
+  name: string
+}[] | null
 }
 
 function formatPrice(price: number) {
@@ -53,7 +53,7 @@ export default async function ProductenPage() {
     )
   }
 
-  const typedProducts = (products ?? []) as ProductWithCategory[]
+  const typedProducts: ProductWithCategory[] = products ?? []
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
@@ -91,7 +91,7 @@ export default async function ProductenPage() {
                 name={product.name}
                 description={product.description ?? ''}
                 price={formatPrice(priceToShow)}
-                category={product.categories?.name ?? 'Product'}
+               category={product.categories?.[0]?.name ?? 'Product'}
                 image={
                   product.default_image_url ?? '/images/placeholder-product.jpg'
                 }
