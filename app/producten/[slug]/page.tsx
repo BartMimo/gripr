@@ -53,19 +53,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <main className="bg-[#F8F8F7] text-stone-900">
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-2 lg:py-20">
-        <div className="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-sm">
-          <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-stone-100">
-            <Image
-              src={imageSrc}
-              alt={product.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
-            />
-          </div>
-        </div>
+     <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 lg:grid-cols-2 lg:items-start lg:py-20">
+       <div className="self-start rounded-[2rem] border border-stone-200 bg-white p-6 shadow-sm">
+  <div className="relative aspect-square w-full overflow-hidden rounded-[1.5rem] bg-stone-100">
+    <Image
+      src={imageSrc}
+      alt={product.name}
+      fill
+      className="object-cover"
+      sizes="(max-width: 1024px) 100vw, 50vw"
+      priority
+    />
+  </div>
+</div>
 
         <div className="max-w-xl">
           <p className="text-sm uppercase tracking-[0.2em] text-[#C6A16E]">
