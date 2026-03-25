@@ -145,14 +145,15 @@ export default async function AdminProductsPage() {
                           </p>
 
                          <div className="mt-2 space-y-1">
+  <div className="mt-2 space-y-1">
   <p className="font-medium text-stone-900">
-    Excl. btw: {formatPrice(product.price_excl_vat)}
+    Excl. btw: {formatPrice(product.price_excl_vat ?? product.price ?? 0)}
   </p>
   <p className="text-sm text-stone-600">
-    Btw: {product.vat_rate}%
+    Btw: {product.vat_rate ?? 21}%
   </p>
   <p className="text-sm text-stone-600">
-    Incl. btw: {formatPrice(product.price_incl_vat)}
+    Incl. btw: {formatPrice(product.price_incl_vat ?? 0)}
   </p>
 </div>
 
